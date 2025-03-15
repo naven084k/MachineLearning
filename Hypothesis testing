@@ -1,0 +1,22 @@
+Hypothesis testing:
+
+Let's assume we are tossing a coin there are two situations for the coin
+
+H0 is a fair coin
+H1 or Ha is not a fair coin
+
+Our goal is to assess and come to decision is about one of the above is true
+
+Null Hypothesis: We assume H0 is correct 
+
+you toss a coin
+
+first result -> tail - prob(0.5)
+second result -> tail - prob(0.25)
+thrid result -> tail - prob(0.12)
+fourth result -> tail - prob(0.06)
+========================================= this is significance value alpha(α) = 0.05
+fifth result -> tail - prob(0.03)
+sixth result -> tail - prob(0.015)
+
+after you seeing the 5th result you can say with 95% confidence we can reject hypothesis H0
