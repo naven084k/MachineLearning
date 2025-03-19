@@ -1,0 +1,125 @@
+1) What is NoSQL and when do you chose?
+    - Low latency
+    - Huge data
+    - Unstructured data
+
+    Types of NoSQL
+      - key-value
+      - Column store
+      - Graph store
+      - Document store
+
+   Example: Neo4j, CouchDB, cassandra, Mongo..
+   
+2) Horizontal scaling vs Vertical scaling
+   - Single point of failure
+   - Failover
+   - redundency
+
+3) Load balancer
+   Load balancer talks to Pivate machines[which are not directly reachable from client]
+   - Availability :- If a nodes goes down and traffic will be routed to others
+   - Scalability - If suddently traffic spikes then we will have option to span more servers
+
+   NGINX
+   Services: Google, Aws ELB, Azure load balancer.
+
+4) Database replication
+   Master/Slave architecture: Master only supports writes and Slaves for reads
+    - Better performance as we are redirecting reads..
+    - Reliability: No need of worrying about data loss
+    - High availability: your DB and app remains operational despite of failures
+
+5) Caching: Temporary storage layers. Stores data in volatile memory not ideal for permanent data stores
+      - Good for read intensive system and where writes are moderate or less frequent
+      - Set right expiration policy[not too short or too high]
+      - Consistency
+      GOOD READ: https://www.youtube.com/results?search_query=scaling+memcache+at+facebook
+      -  Mitigating failures
+         - Avoid Single point of failure[SPOF], Add multiple cache servers
+      - Eviction policy: LRU, FIFO, LFO
+   
+   Frameworks:
+
+      - Redis
+      - Memcached
+      - EhCache
+      - Apache Ignite
+
+   Cloud Services:
+      -  AWS ElastiCache
+      -  Azure Cache
+
+6) Content delivery networks:
+
+   geographically dispersed servers used to deliver static content like images, videos, css, javascript etc..
+   Your system should handle CDN failures too. We can code in client scripts accordingly
+   Static resources are served from the CDN where as API requests are served by your server.
+
+   - Amazon cloudFront
+   - CloudFlare CDN
+   - Akamai
+   - Google cloud
+
+
+7) Stateless web tier to horizontally scale web servers seamlessly:
+   Move the state data out of web servers to persistent store so that each web server needs the information. Stateful server remembers the client
+   data from request-request. A stateless server keeps no state information. Sticky sessions concepts supports stateful architecture.
+   Issue with stateful architecture:
+   Adding or removing server is much more difficult with this approach
+
+   Once we move to stateless architecture we can scale web tier horizontally without issues.
+   NoSQL databases are good option here to provide low latency and easy to scale
+
+8) Multiple data centers: 
+   in general geoDNS-routed or requests are georouted.. geoDNS Service
+   our system stil will be available in case of any significant data center outage. But how do we ensure data
+   consistency. I mean DB server of one region and other region DB's sync?
+   May be master DB's and Web tiers colocated. and read replica's stay in different region
+
+9) Message Queue:
+   MessageQueues help in decoupling the systems.
+   Let's assume you developed an application for photo customization and cropping. and these are I/O intensive operations
+   and takes time. If you perform these operations in the request it self then it may block other users accessing your 
+   application. 
+
+   We should leverage message queue here where you need to push events to MQ and workers will process and intimate the client
+
+   Technologies
+   Kafka
+   RabbitMQ
+   
+10) Logging and Metrics
+    Logging: It is important to understand errors and problems in these kind of systems make difficult to identify and debug
+    Aggregation tools to pull information from different servers to central instance
+
+    Metrics: As we are investing the resources heavily to support large customer base, It is quite important to understand the
+    usage
+      - Host level metrics, CPU, Memory, Disk I/O, Disk storage etc
+      - Key business metrics: Active user usage, retention and more
+11) Automation
+12) Horizontal scaling vs Vertical Scaling
+    Vertical scaling has limitations that we can't extend hardware after a certain point and which is expensive also and come with
+    other draw backs such as Single point of failure and availability issues.
+
+    Horizontal scaling is adding more servers to your database and split your data in to small data sets reside in different servers
+    and all these servers have same schema
+
+    Splitting data on to different servers can be done based on user_id or any other columns hash. Good hash function will distribute
+    the data evenly
+
+    Resharding of the data: 
+    Problems:
+    1) A single shard couldn't hold more data due rapid expansion
+    2) Certain shards might exhause faster than others due hotkey or celebrity problem
+
+    Consistent hashing is a technique to solve this problem
+
+14) Back of the envelope calculations
+15) 
+
+
+
+
+
+
